@@ -132,7 +132,7 @@
                 "table": "empresas",
                 "column": "status_empresa",
                 "type": "text",
-                "value": "{{$_POST.status_empresa}}"
+                "value": "{{'Ativo'}}"
               },
               {
                 "table": "empresas",
@@ -173,7 +173,7 @@
             ],
             "table": "empresas",
             "returning": "id_empresa",
-            "query": "insert into \"empresas\" (\"bairro\", \"cep\", \"cidade\", \"cnpj\", \"complemento\", \"endereco\", \"nome_fantasia\", \"nome_polo\", \"numero\", \"razao_social\", \"status_empresa\", \"uf\", \"whatsapp\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into \"empresas\" (\"bairro\", \"cep\", \"cidade\", \"cnpj\", \"complemento\", \"endereco\", \"nome_fantasia\", \"nome_polo\", \"numero\", \"razao_social\", \"status_empresa\", \"uf\", \"whatsapp\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_empresa\"",
             "params": [
               {
                 "name": ":P1",
@@ -214,7 +214,7 @@
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{$_POST.status_empresa}}",
+                "value": "{{'Ativo'}}",
                 "test": ""
               },
               {
