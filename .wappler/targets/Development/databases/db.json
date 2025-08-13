@@ -32,10 +32,6 @@
       },
       "empresas": {
         "db": {},
-        "refs": {
-          "usuarios": "empresa_selecionada",
-          "usuario_empresa": "ref_id_empresa"
-        },
         "columns": {
           "id_empresa": {
             "db": {
@@ -185,22 +181,83 @@
               "onDelete": "NO ACTION"
             }
           }
+        },
+        "refs": {
+          "usuarios": "empresa_selecionada",
+          "usuario_empresa": "ref_id_empresa"
         }
       },
       "boards_list_cards": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_list_cards": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_list_cards": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "boards": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_board": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "times_membros": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_times_membros": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_times_membros": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "usuarios": {
         "db": {},
-        "sub": {
-          "usuario_empresa": "ref_id_usuario"
-        },
         "columns": {
           "id_usuarios": {
             "db": {
@@ -269,20 +326,82 @@
               "onDelete": "NO ACTION"
             }
           }
+        },
+        "sub": {
+          "usuario_empresa": "ref_id_usuario"
         }
       },
       "times": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_times": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_times": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "board_membros": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_board_membros": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board_membros": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "board_lists": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "id_board_lists": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board_lists": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "usuario_empresa": {
         "db": {},
-        "parent": "usuarios",
         "columns": {
           "id_usuario_empresa": {
             "db": {
@@ -346,7 +465,8 @@
               "nullable": true
             }
           }
-        }
+        },
+        "parent": "usuarios"
       },
       "vault.secrets": {
         "db": {}
@@ -373,7 +493,52 @@
         "db": {}
       },
       "auth.audit_log_entries": {
-        "db": {}
+        "db": {},
+        "columns": {
+          "instance_id": {
+            "db": {
+              "type": "uuid",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "id": {
+            "db": {
+              "type": "uuid",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "payload": {
+            "db": {
+              "type": "json",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "timestamp",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "ip_address": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 64,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
       },
       "auth.identities": {
         "db": {}
@@ -446,11 +611,6 @@
       }
     },
     "views": {
-      "vault.decrypted_secrets": {
-        "db": {
-          "schema": "vault"
-        }
-      },
       "extensions.pg_stat_statements_info": {
         "db": {
           "schema": "extensions"
@@ -459,6 +619,11 @@
       "extensions.pg_stat_statements": {
         "db": {
           "schema": "extensions"
+        }
+      },
+      "vault.decrypted_secrets": {
+        "db": {
+          "schema": "vault"
         }
       }
     }

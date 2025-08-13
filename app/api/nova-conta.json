@@ -1,69 +1,89 @@
 {
   "meta": {
+    "options": {
+      "linkedFile": "/views/index.ejs",
+      "linkedForm": "form1"
+    },
     "$_POST": [
       {
         "type": "text",
+        "fieldName": "razao_social",
         "name": "razao_social"
       },
       {
         "type": "text",
+        "fieldName": "nome_fantasia",
         "name": "nome_fantasia"
       },
       {
         "type": "text",
+        "fieldName": "nome_polo",
         "name": "nome_polo"
       },
       {
         "type": "text",
+        "fieldName": "cnpj",
         "name": "cnpj"
       },
       {
         "type": "text",
-        "name": "cep"
-      },
-      {
-        "type": "text",
+        "fieldName": "whatsapp",
         "name": "whatsapp"
       },
       {
         "type": "text",
-        "name": "status_empresa"
-      },
-      {
-        "type": "text",
+        "fieldName": "endereco",
         "name": "endereco"
       },
       {
         "type": "text",
+        "fieldName": "numero",
         "name": "numero"
       },
       {
         "type": "text",
+        "fieldName": "cep",
+        "name": "cep"
+      },
+      {
+        "type": "text",
+        "fieldName": "complemento",
         "name": "complemento"
       },
       {
         "type": "text",
+        "fieldName": "bairro",
         "name": "bairro"
       },
       {
         "type": "text",
+        "fieldName": "cidade",
         "name": "cidade"
       },
       {
         "type": "text",
+        "fieldName": "uf",
         "name": "uf"
       },
       {
         "type": "text",
+        "fieldName": "nome_completo",
         "name": "nome_completo"
       },
       {
         "type": "text",
+        "fieldName": "nome_tratamento",
         "name": "nome_tratamento"
       },
       {
         "type": "text",
+        "fieldName": "email",
         "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "senha",
+        "name": "senha"
       },
       {
         "type": "text",
@@ -74,12 +94,36 @@
   "exec": {
     "steps": [
       {
+        "name": "validate",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
+            {
+              "name": "validate_1",
+              "value": "{{$_POST.cnpj}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "db",
+                    "table": "empresas",
+                    "column": "cnpj"
+                  },
+                  "message": "CNPJ já cadastrado."
+                }
+              },
+              "fieldName": "CNPJ"
+            }
+          ]
+        }
+      },
+      {
         "name": "hash",
         "module": "crypto",
         "action": "passwordHash",
         "options": {
-          "algo": "argon2id",
-          "password": "{{$_POST.senha_usuario}}"
+          "password": "{{$_POST.senha}}",
+          "algo": "argon2id"
         },
         "outputType": "text"
       },
@@ -417,7 +461,7 @@
         ]
       },
       {
-        "name": "insert",
+        "name": "insert_empresa_usuario",
         "module": "dbupdater",
         "action": "insert",
         "options": {
@@ -441,7 +485,7 @@
                 "table": "usuario_empresa",
                 "column": "cargo_usuario_empresa",
                 "type": "text",
-                "value": "{{'Adm'}}"
+                "value": "{{'Admin'}}"
               },
               {
                 "table": "usuario_empresa",
@@ -469,7 +513,7 @@
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{'Adm'}}",
+                "value": "{{'Admin'}}",
                 "test": ""
               },
               {

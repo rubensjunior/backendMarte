@@ -1,0 +1,16 @@
+{
+  "debug": false,
+  "secret": "PZnGBGTvSzXAM9g",
+  "cors": {
+    "origin": [
+      "http://localhost",
+      "http://localhost:*",
+      "capacitor-electron://-",
+      "capacitor://localhost",
+      "http://localhost:49984",
+      "file://*",
+      "electron://*"
+    ],
+    "allowedHeaders": "accept,authorization,content-type,origin,referer"
+  }
+}

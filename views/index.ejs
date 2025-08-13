@@ -2,26 +2,73 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form id="form1" is="dmx-serverconnect-form" method="post" action="/api/criar-conta/create-conta" class="form-group" dmx-on:error="notifies1.danger(lastError.status+lastError.message+lastError.response)" dmx-on:success="notifies1.success('Cadastrado com sucesso!')">
-                <div class="form-group mb-3"> <button id="btn1" class="btn btn-primary" type="submit">Button</button>
+            <form id="form1" is="dmx-serverconnect-form" method="post" action="/api/nova-conta">
+                <div class="form-group mb-3"> <label for="razao_social" class="form-label">razao_social</label>
+                    <input type="text" class="form-control" id="razao_social" name="razao_social" aria-describedby="input1_help" placeholder="Enter some text">
+                    <small id="input1_help" class="form-text text-muted">Your input is very valuable.</small>
                 </div>
-                <p><label for="razao_social">Razao social:</label><input id="razao_social" name="razao_social" type="text" value=""></p>
-                <p><label for="nome_fantasia">Nome fantasia:</label><input id="nome_fantasia" name="nome_fantasia" type="text" value=""></p>
-                <p><label for="nome_polo">Nome polo:</label><input id="nome_polo" name="nome_polo" type="text" value=""></p>
-                <p><label for="cnpj">Cnpj:</label><input id="cnpj" name="cnpj" type="text" value=""></p>
-                <p><label for="cep">Cep:</label><input id="cep" name="cep" type="text" value=""></p>
-                <p><label for="whatsapp">Whatsapp:</label><input id="whatsapp" name="whatsapp" type="text" value=""></p>
-                <p><label for="status_empresa">Status empresa:</label><input id="status_empresa" name="status_empresa" type="text" value=""></p>
-                <p><label for="endereco">Endereco:</label><input id="endereco" name="endereco" type="text" value=""></p>
-                <p><label for="numero">Numero:</label><input id="numero" name="numero" type="text" value=""></p>
-                <p><label for="complemento">Complemento:</label><input id="complemento" name="complemento" type="text" value=""></p>
-                <p><label for="bairro">Bairro:</label><input id="bairro" name="bairro" type="text" value=""></p>
-                <p><label for="cidade">Cidade:</label><input id="cidade" name="cidade" type="text" value=""></p>
-                <p><label for="uf">Uf:</label><input id="uf" name="uf" type="text" value=""></p>
-                <p><label for="nome_completo">Nome completo:</label><input id="nome_completo" name="nome_completo" type="text" value=""></p>
-                <p><label for="nome_tratamento">Nome tratamento:</label><input id="nome_tratamento" name="nome_tratamento" type="text" value=""></p>
-                <p><label for="email">Email:</label><input id="email" name="email" type="text" value=""></p>
-                <p><label for="senha_usuario">Senha usuario:</label><input id="senha_usuario" name="senha_usuario" type="text" value=""></p>
+                <div class="form-group mb-3"> <label for="nome_fantasia" class="form-label">nome_fantasia</label>
+                    <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" aria-describedby="input1_help1" placeholder="Enter some text">
+                    <small id="input1_help1" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="nome_polo" class="form-label">nome_polo</label>
+                    <input type="text" class="form-control" id="nome_polo" name="nome_polo" aria-describedby="input1_help2" placeholder="Enter some text">
+                    <small id="input1_help2" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="cnpj" class="form-label">cnpj</label>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" aria-describedby="input1_help3" placeholder="Enter some text">
+                    <small id="input1_help3" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="whatsapp" class="form-label">whatsapp</label>
+                    <input type="text" class="form-control" id="whatsapp" name="whatsapp" aria-describedby="input1_help5" placeholder="Enter some text">
+                    <small id="input1_help5" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="endereco" class="form-label">endereco</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco" aria-describedby="input1_help8" placeholder="Enter some text">
+                    <small id="input1_help8" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="numero" class="form-label">numero</label>
+                    <input type="text" class="form-control" id="numero" name="numero" aria-describedby="input1_help6" placeholder="Enter some text">
+                    <small id="input1_help6" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="cep" class="form-label">cep</label>
+                    <input type="text" class="form-control" id="cep" name="cep" aria-describedby="input1_help7" placeholder="Enter some text">
+                    <small id="input1_help7" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="complemento" class="form-label">complemento</label>
+                    <input type="text" class="form-control" id="complemento" name="complemento" aria-describedby="input1_help9" placeholder="Enter some text">
+                    <small id="input1_help9" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="bairro" class="form-label">bairro</label>
+                    <input type="text" class="form-control" id="bairro" name="bairro" aria-describedby="input1_help10" placeholder="Enter some text">
+                    <small id="input1_help10" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="cidade" class="form-label">cidade</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" aria-describedby="input1_help4" placeholder="Enter some text">
+                    <small id="input1_help4" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="uf" class="form-label">uf</label>
+                    <input type="text" class="form-control" id="uf" name="uf" aria-describedby="input1_help" placeholder="Enter some text">
+                    <small id="input1_help" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="nome_completo" class="form-label">nome_completo</label>
+                    <input type="text" class="form-control" id="nome_completo" name="nome_completo" aria-describedby="input1_help11" placeholder="Enter some text">
+                    <small id="input1_help11" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="nome_tratamento" class="form-label">nome_tratamento</label>
+                    <input type="text" class="form-control" id="nome_tratamento" name="nome_tratamento" aria-describedby="input1_help12" placeholder="Enter some text">
+                    <small id="input1_help12" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="email" class="form-label">email</label>
+                    <input type="text" class="form-control" id="email" name="email" aria-describedby="input1_help14" placeholder="Enter some text">
+                    <small id="input1_help14" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <label for="senha" class="form-label">senha</label>
+                    <input type="text" class="form-control" id="senha" name="senha" aria-describedby="input1_help18" placeholder="Enter some text">
+                    <small id="input1_help18" class="form-text text-muted">Your input is very valuable.</small>
+                </div>
+                <div class="form-group mb-3"> <button id="btn1" class="btn btn-secondary" type="submit">Button</button>
+                </div>
             </form>
         </div>
     </div>
