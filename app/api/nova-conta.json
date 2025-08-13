@@ -113,6 +113,21 @@
                 }
               },
               "fieldName": "CNPJ"
+            },
+            {
+              "name": "email",
+              "value": "{{$_POST.email}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "db",
+                    "table": "usuarios",
+                    "column": "email"
+                  },
+                  "message": "Este e-mail já está em uso! Entre em contato com o suporte!"
+                }
+              },
+              "fieldName": "email"
             }
           ]
         }
