@@ -6,7 +6,7 @@
       "capacitor://",
       "capacitor://localhost",
       "http://localhost",
-      "http://localhost:57913",
+      "http://localhost:61696",
       "capacitor-electron://-",
       "capacitor-electron://localhost"
     ],

@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id_usuario_logado"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "usuarios",
+              "column": "id_usuarios"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome_completo"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome_tratamento"
+            },
+            {
+              "table": "usuarios",
+              "column": "email"
+            },
+            {
+              "table": "usuarios",
+              "column": "empresa_selecionada"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_polo"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "usuarios"
+          },
+          "primary": "id_usuarios",
+          "joins": [
+            {
+              "table": "empresas",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "empresas",
+                    "column": "id_empresa",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "usuarios",
+                      "column": "empresa_selecionada"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_empresa"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "usuarios.id_usuarios",
+                "field": "usuarios.id_usuarios",
+                "type": "string",
+                "operator": "equal",
+                "value": "29",
+                "data": {
+                  "table": "usuarios",
+                  "column": "id_usuarios",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "bigIncrements",
+                    "primary": true,
+                    "unique": true,
+                    "nullable": false,
+                    "name": "id_usuarios"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"usuarios\".\"id_usuarios\", \"usuarios\".\"nome_completo\", \"usuarios\".\"nome_tratamento\", \"usuarios\".\"email\", \"usuarios\".\"empresa_selecionada\", \"empresas\".\"nome_polo\" from \"usuarios\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios\".\"empresa_selecionada\" where \"usuarios\".\"id_usuarios\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_usuarios"
+        },
+        {
+          "type": "text",
+          "name": "nome_completo"
+        },
+        {
+          "type": "text",
+          "name": "nome_tratamento"
+        },
+        {
+          "type": "text",
+          "name": "email"
+        },
+        {
+          "type": "number",
+          "name": "empresa_selecionada"
+        },
+        {
+          "type": "text",
+          "name": "nome_polo"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}

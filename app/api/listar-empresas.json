@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id_usuario_logado"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_empresas",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "empresas",
+              "column": "razao_social"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_fantasia"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_polo"
+            },
+            {
+              "table": "empresas",
+              "column": "cnpj"
+            },
+            {
+              "table": "empresas",
+              "column": "status_empresa"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id_usuario_logado}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "usuario_empresa"
+          },
+          "primary": "id_usuario_empresa",
+          "joins": [
+            {
+              "table": "empresas",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "empresas",
+                    "column": "id_empresa",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "usuario_empresa",
+                      "column": "ref_id_empresa"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_empresa"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "usuario_empresa.ref_id_usuario",
+                "field": "usuario_empresa.ref_id_usuario",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.id_usuario_logado}}",
+                "data": {
+                  "table": "usuario_empresa",
+                  "column": "ref_id_usuario",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_usuarios",
+                    "inTable": "usuarios",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "ref_id_usuario"
+                  }
+                },
+                "operation": "=",
+                "table": "usuario_empresa"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"empresas\".\"razao_social\", \"empresas\".\"nome_fantasia\", \"empresas\".\"nome_polo\", \"empresas\".\"cnpj\", \"empresas\".\"status_empresa\" from \"usuario_empresa\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuario_empresa\".\"ref_id_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "razao_social"
+        },
+        {
+          "type": "text",
+          "name": "nome_fantasia"
+        },
+        {
+          "type": "text",
+          "name": "nome_polo"
+        },
+        {
+          "type": "text",
+          "name": "cnpj"
+        },
+        {
+          "type": "text",
+          "name": "status_empresa"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
