@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "fieldName": "id_usuario",
+        "name": "id_usuario"
+      },
+      {
+        "type": "text",
+        "fieldName": "id_empresa",
+        "name": "id_empresa"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_empresa_selecionada",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "usuarios",
+              "column": "empresa_selecionada",
+              "type": "number",
+              "value": "{{$_GET.id_empresa}}"
+            }
+          ],
+          "table": "usuarios",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_usuarios",
+                "field": "id_usuarios",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.id_usuario}}",
+                "data": {
+                  "column": "id_usuarios"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_usuarios",
+          "query": "update \"usuarios\" set \"empresa_selecionada\" = ? where \"id_usuarios\" = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_GET.id_empresa}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_GET.id_usuario}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

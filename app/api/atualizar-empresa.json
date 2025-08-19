@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "edit_id_empresa",
+        "name": "edit_id_empresa"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_razao_social",
+        "name": "edit_razao_social"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_nome_fantasia",
+        "name": "edit_nome_fantasia"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_nome_polo",
+        "name": "edit_nome_polo"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_cnpj",
+        "name": "edit_cnpj"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_whatsapp",
+        "name": "edit_whatsapp"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_endereco",
+        "name": "edit_endereco"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_numero",
+        "name": "edit_numero"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_cep",
+        "name": "edit_cep"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_complemento",
+        "name": "edit_complemento"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_bairro",
+        "name": "edit_bairro"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_cidade",
+        "name": "edit_cidade"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_uf",
+        "name": "edit_uf"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_empresa",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "empresas",
+              "column": "razao_social",
+              "type": "text",
+              "value": "{{$_POST.edit_razao_social}}"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_fantasia",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_fantasia}}"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_polo",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_polo}}"
+            },
+            {
+              "table": "empresas",
+              "column": "cnpj",
+              "type": "text",
+              "value": "{{$_POST.edit_cnpj}}"
+            },
+            {
+              "table": "empresas",
+              "column": "cep",
+              "type": "text",
+              "value": "{{$_POST.edit_cep}}"
+            },
+            {
+              "table": "empresas",
+              "column": "whatsapp",
+              "type": "text",
+              "value": "{{$_POST.edit_whatsapp}}"
+            },
+            {
+              "table": "empresas",
+              "column": "endereco",
+              "type": "text",
+              "value": "{{$_POST.edit_endereco}}"
+            },
+            {
+              "table": "empresas",
+              "column": "numero",
+              "type": "text",
+              "value": "{{$_POST.edit_numero}}"
+            },
+            {
+              "table": "empresas",
+              "column": "complemento",
+              "type": "text",
+              "value": "{{$_POST.edit_complemento}}"
+            },
+            {
+              "table": "empresas",
+              "column": "bairro",
+              "type": "text",
+              "value": "{{$_POST.edit_bairro}}"
+            },
+            {
+              "table": "empresas",
+              "column": "cidade",
+              "type": "text",
+              "value": "{{$_POST.edit_cidade}}"
+            },
+            {
+              "table": "empresas",
+              "column": "uf",
+              "type": "text",
+              "value": "{{$_POST.edit_uf}}"
+            }
+          ],
+          "table": "empresas",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_empresa",
+                "field": "id_empresa",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_POST.edit_id_empresa}}",
+                "data": {
+                  "column": "id_empresa"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_empresa",
+          "query": "update \"empresas\" set \"razao_social\" = ?, \"nome_fantasia\" = ?, \"nome_polo\" = ?, \"cnpj\" = ?, \"cep\" = ?, \"whatsapp\" = ?, \"endereco\" = ?, \"numero\" = ?, \"complemento\" = ?, \"bairro\" = ?, \"cidade\" = ?, \"uf\" = ? where \"id_empresa\" = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.edit_razao_social}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_fantasia}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_polo}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.edit_cnpj}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.edit_cep}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.edit_whatsapp}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.edit_endereco}}",
+              "test": ""
+            },
+            {
+              "name": ":P8",
+              "type": "expression",
+              "value": "{{$_POST.edit_numero}}",
+              "test": ""
+            },
+            {
+              "name": ":P9",
+              "type": "expression",
+              "value": "{{$_POST.edit_complemento}}",
+              "test": ""
+            },
+            {
+              "name": ":P10",
+              "type": "expression",
+              "value": "{{$_POST.edit_bairro}}",
+              "test": ""
+            },
+            {
+              "name": ":P11",
+              "type": "expression",
+              "value": "{{$_POST.edit_cidade}}",
+              "test": ""
+            },
+            {
+              "name": ":P12",
+              "type": "expression",
+              "value": "{{$_POST.edit_uf}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P13",
+              "value": "{{$_POST.edit_id_empresa}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

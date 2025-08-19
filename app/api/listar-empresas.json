@@ -27,6 +27,10 @@
           "columns": [
             {
               "table": "empresas",
+              "column": "id_empresa"
+            },
+            {
+              "table": "empresas",
               "column": "razao_social"
             },
             {
@@ -43,7 +47,43 @@
             },
             {
               "table": "empresas",
+              "column": "empresa_matriz"
+            },
+            {
+              "table": "empresas",
+              "column": "cep"
+            },
+            {
+              "table": "empresas",
+              "column": "whatsapp"
+            },
+            {
+              "table": "empresas",
               "column": "status_empresa"
+            },
+            {
+              "table": "empresas",
+              "column": "endereco"
+            },
+            {
+              "table": "empresas",
+              "column": "numero"
+            },
+            {
+              "table": "empresas",
+              "column": "complemento"
+            },
+            {
+              "table": "empresas",
+              "column": "bairro"
+            },
+            {
+              "table": "empresas",
+              "column": "cidade"
+            },
+            {
+              "table": "empresas",
+              "column": "uf"
             }
           ],
           "params": [
@@ -115,11 +155,15 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"empresas\".\"razao_social\", \"empresas\".\"nome_fantasia\", \"empresas\".\"nome_polo\", \"empresas\".\"cnpj\", \"empresas\".\"status_empresa\" from \"usuario_empresa\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuario_empresa\".\"ref_id_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ?"
+          "query": "select \"empresas\".\"id_empresa\", \"empresas\".\"razao_social\", \"empresas\".\"nome_fantasia\", \"empresas\".\"nome_polo\", \"empresas\".\"cnpj\", \"empresas\".\"empresa_matriz\", \"empresas\".\"cep\", \"empresas\".\"whatsapp\", \"empresas\".\"status_empresa\", \"empresas\".\"endereco\", \"empresas\".\"numero\", \"empresas\".\"complemento\", \"empresas\".\"bairro\", \"empresas\".\"cidade\", \"empresas\".\"uf\" from \"usuario_empresa\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuario_empresa\".\"ref_id_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ?"
         }
       },
       "output": true,
       "meta": [
+        {
+          "type": "text",
+          "name": "id_empresa"
+        },
         {
           "type": "text",
           "name": "razao_social"
@@ -137,8 +181,44 @@
           "name": "cnpj"
         },
         {
+          "type": "number",
+          "name": "empresa_matriz"
+        },
+        {
+          "type": "text",
+          "name": "cep"
+        },
+        {
+          "type": "text",
+          "name": "whatsapp"
+        },
+        {
           "type": "text",
           "name": "status_empresa"
+        },
+        {
+          "type": "text",
+          "name": "endereco"
+        },
+        {
+          "type": "text",
+          "name": "numero"
+        },
+        {
+          "type": "text",
+          "name": "complemento"
+        },
+        {
+          "type": "text",
+          "name": "bairro"
+        },
+        {
+          "type": "text",
+          "name": "cidade"
+        },
+        {
+          "type": "text",
+          "name": "uf"
         }
       ],
       "outputType": "array"
