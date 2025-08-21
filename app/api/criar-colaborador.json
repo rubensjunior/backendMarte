@@ -1,0 +1,411 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "nome_completo",
+        "name": "nome_completo"
+      },
+      {
+        "type": "text",
+        "fieldName": "nome_tratamento",
+        "name": "nome_tratamento"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "name": "email"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_empresa_atual",
+        "name": "id_empresa_atual"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "query_usuario",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "usuarios",
+                "column": "id_usuarios"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "usuarios"
+            },
+            "primary": "id_usuarios",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "usuarios.email",
+                  "field": "usuarios.email",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.email}}",
+                  "data": {
+                    "table": "usuarios",
+                    "column": "email",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "maxLength": -5,
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "name": "email"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"id_usuarios\" from \"usuarios\" where \"usuarios\".\"email\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "id_usuarios"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "usuario_empresa",
+                "column": "ref_id_usuario"
+              },
+              {
+                "table": "usuario_empresa",
+                "column": "ref_id_empresa"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{query_usuario.id_usuarios}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_POST.id_empresa_atual}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "usuario_empresa"
+            },
+            "primary": "id_usuario_empresa",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "usuario_empresa.ref_id_usuario",
+                  "field": "usuario_empresa.ref_id_usuario",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{query_usuario.id_usuarios}}",
+                  "data": {
+                    "table": "usuario_empresa",
+                    "column": "ref_id_usuario",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_usuarios",
+                      "inTable": "usuarios",
+                      "referenceType": "bigInteger",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "ref_id_usuario"
+                    }
+                  },
+                  "operation": "="
+                },
+                {
+                  "id": "usuario_empresa.ref_id_empresa",
+                  "field": "usuario_empresa.ref_id_empresa",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.id_empresa_atual}}",
+                  "data": {
+                    "table": "usuario_empresa",
+                    "column": "ref_id_empresa",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": true,
+                      "references": "id_empresa",
+                      "inTable": "empresas",
+                      "referenceType": "bigInteger",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "NO ACTION",
+                      "name": "ref_id_empresa"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"ref_id_usuario\", \"ref_id_empresa\" from \"usuario_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ? and \"usuario_empresa\".\"ref_id_empresa\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "ref_id_usuario"
+          },
+          {
+            "type": "number",
+            "name": "ref_id_empresa"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "module": "core",
+        "action": "condition",
+        "name": "verificar_associacao",
+        "options": {
+          "if": "{{query && query.length > 0}}",
+          "then": {
+            "steps": {
+              "name": "resposta",
+              "module": "core",
+              "action": "setvalue",
+              "options": {
+                "value": "Usuário já está associado a uma empresa!",
+                "key": "resposta"
+              },
+              "outputType": "object",
+              "output": true,
+              "meta": []
+            }
+          },
+          "else": {
+            "steps": [
+              {
+                "name": "insert_usuario",
+                "module": "dbupdater",
+                "action": "insert",
+                "options": {
+                  "connection": "db",
+                  "sql": {
+                    "type": "insert",
+                    "values": [
+                      {
+                        "table": "usuarios",
+                        "column": "nome_completo",
+                        "type": "text",
+                        "value": "{{$_POST.nome_completo}}"
+                      },
+                      {
+                        "table": "usuarios",
+                        "column": "nome_tratamento",
+                        "type": "text",
+                        "value": "{{$_POST.nome_tratamento}}"
+                      },
+                      {
+                        "table": "usuarios",
+                        "column": "email",
+                        "type": "text",
+                        "value": "{{$_POST.email}}"
+                      },
+                      {
+                        "table": "usuarios",
+                        "column": "empresa_selecionada",
+                        "type": "number",
+                        "value": "{{$_POST.id_empresa_atual}}"
+                      }
+                    ],
+                    "table": "usuarios",
+                    "returning": "id_usuarios",
+                    "query": "insert into \"usuarios\" (\"email\", \"empresa_selecionada\", \"nome_completo\", \"nome_tratamento\") values (?, ?, ?, ?)",
+                    "params": [
+                      {
+                        "name": ":P1",
+                        "type": "expression",
+                        "value": "{{$_POST.nome_completo}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P2",
+                        "type": "expression",
+                        "value": "{{$_POST.nome_tratamento}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P3",
+                        "type": "expression",
+                        "value": "{{$_POST.email}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P4",
+                        "type": "expression",
+                        "value": "{{$_POST.id_empresa_atual}}",
+                        "test": ""
+                      }
+                    ]
+                  }
+                },
+                "meta": [
+                  {
+                    "name": "identity",
+                    "type": "text"
+                  },
+                  {
+                    "name": "affected",
+                    "type": "number"
+                  }
+                ]
+              },
+              {
+                "name": "insert_empresa_usuario",
+                "module": "dbupdater",
+                "action": "insert",
+                "options": {
+                  "connection": "db",
+                  "sql": {
+                    "type": "insert",
+                    "values": [
+                      {
+                        "table": "usuario_empresa",
+                        "column": "ref_id_usuario",
+                        "type": "number",
+                        "value": "{{insert_usuario.identity}}"
+                      },
+                      {
+                        "table": "usuario_empresa",
+                        "column": "ref_id_empresa",
+                        "type": "number",
+                        "value": "{{$_POST.id_empresa_atual}}"
+                      },
+                      {
+                        "table": "usuario_empresa",
+                        "column": "cargo_usuario_empresa",
+                        "type": "text",
+                        "value": "{{'Colaborador'}}"
+                      },
+                      {
+                        "table": "usuario_empresa",
+                        "column": "status_usuario",
+                        "type": "text",
+                        "value": "{{'Ativo'}}"
+                      }
+                    ],
+                    "table": "usuario_empresa",
+                    "returning": "id_usuario_empresa",
+                    "query": "insert into \"usuario_empresa\" (\"cargo_usuario_empresa\", \"ref_id_empresa\", \"ref_id_usuario\", \"status_usuario\") values (?, ?, ?, ?)",
+                    "params": [
+                      {
+                        "name": ":P1",
+                        "type": "expression",
+                        "value": "{{insert_usuario.identity}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P2",
+                        "type": "expression",
+                        "value": "{{$_POST.id_empresa_atual}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P3",
+                        "type": "expression",
+                        "value": "{{'Colaborador'}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P4",
+                        "type": "expression",
+                        "value": "{{'Ativo'}}",
+                        "test": ""
+                      }
+                    ]
+                  }
+                },
+                "meta": [
+                  {
+                    "name": "identity",
+                    "type": "text"
+                  },
+                  {
+                    "name": "affected",
+                    "type": "number"
+                  }
+                ]
+              },
+              {
+                "name": "resposta",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
+                  "value": "u",
+                  "key": "resposta"
+                },
+                "outputType": "object",
+                "output": true,
+                "meta": []
+              }
+            ]
+          }
+        },
+        "outputType": "boolean"
+      }
+    ]
+  }
+}

@@ -3,7 +3,7 @@
     "$_GET": [
       {
         "type": "number",
-        "name": "id_usuario_logado"
+        "name": "id_empresa_atual"
       },
       {
         "type": "text",
@@ -17,7 +17,7 @@
   },
   "exec": {
     "steps": {
-      "name": "query",
+      "name": "query_colaboradores",
       "module": "dbconnector",
       "action": "select",
       "options": {
@@ -25,10 +25,6 @@
         "sql": {
           "type": "SELECT",
           "columns": [
-            {
-              "table": "usuarios",
-              "column": "id_usuarios"
-            },
             {
               "table": "usuarios",
               "column": "nome_completo"
@@ -42,12 +38,12 @@
               "column": "email"
             },
             {
-              "table": "usuarios",
-              "column": "empresa_selecionada"
+              "table": "usuario_empresa",
+              "column": "cargo_usuario_empresa"
             },
             {
-              "table": "empresas",
-              "column": "nome_polo"
+              "table": "usuario_empresa",
+              "column": "status_usuario"
             }
           ],
           "params": [
@@ -55,73 +51,75 @@
               "operator": "equal",
               "type": "expression",
               "name": ":P1",
-              "value": "{{$_GET.id_usuario_logado}}",
+              "value": "{{$_GET.id_empresa_atual}}",
               "test": ""
             }
           ],
           "table": {
-            "name": "usuarios"
+            "name": "usuario_empresa"
           },
-          "primary": "id_usuarios",
+          "primary": "id_usuario_empresa",
           "joins": [
             {
-              "table": "empresas",
+              "table": "usuarios",
               "column": "*",
               "type": "INNER",
               "clauses": {
                 "condition": "AND",
                 "rules": [
                   {
-                    "table": "empresas",
-                    "column": "id_empresa",
+                    "table": "usuarios",
+                    "column": "id_usuarios",
                     "operator": "equal",
                     "operation": "=",
                     "value": {
-                      "table": "usuarios",
-                      "column": "empresa_selecionada"
+                      "table": "usuario_empresa",
+                      "column": "ref_id_usuario"
                     }
                   }
                 ]
               },
-              "primary": "id_empresa"
+              "primary": "id_usuarios"
             }
           ],
           "wheres": {
             "condition": "AND",
             "rules": [
               {
-                "id": "usuarios.id_usuarios",
-                "field": "usuarios.id_usuarios",
-                "type": "string",
+                "id": "usuario_empresa.ref_id_empresa",
+                "field": "usuario_empresa.ref_id_empresa",
+                "type": "double",
                 "operator": "equal",
-                "value": "{{$_GET.id_usuario_logado}}",
+                "value": "{{$_GET.id_empresa_atual}}",
                 "data": {
-                  "table": "usuarios",
-                  "column": "id_usuarios",
-                  "type": "text",
+                  "table": "usuario_empresa",
+                  "column": "ref_id_empresa",
+                  "type": "number",
                   "columnObj": {
-                    "type": "bigIncrements",
-                    "primary": true,
-                    "unique": true,
-                    "nullable": false,
-                    "name": "id_usuarios"
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_empresa",
+                    "inTable": "empresas",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "ref_id_empresa"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "usuario_empresa"
               }
             ],
             "conditional": null,
             "valid": true
           },
-          "query": "select \"usuarios\".\"id_usuarios\", \"usuarios\".\"nome_completo\", \"usuarios\".\"nome_tratamento\", \"usuarios\".\"email\", \"usuarios\".\"empresa_selecionada\", \"empresas\".\"nome_polo\" from \"usuarios\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios\".\"empresa_selecionada\" where \"usuarios\".\"id_usuarios\" = ?"
+          "query": "select \"usuarios\".\"nome_completo\", \"usuarios\".\"nome_tratamento\", \"usuarios\".\"email\", \"usuario_empresa\".\"cargo_usuario_empresa\", \"usuario_empresa\".\"status_usuario\" from \"usuario_empresa\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"usuario_empresa\".\"ref_id_usuario\" where \"usuario_empresa\".\"ref_id_empresa\" = ?"
         }
       },
       "output": true,
       "meta": [
-        {
-          "type": "text",
-          "name": "id_usuarios"
-        },
         {
           "type": "text",
           "name": "nome_completo"
@@ -135,16 +133,15 @@
           "name": "email"
         },
         {
-          "type": "number",
-          "name": "empresa_selecionada"
+          "type": "text",
+          "name": "cargo_usuario_empresa"
         },
         {
           "type": "text",
-          "name": "nome_polo"
+          "name": "status_usuario"
         }
       ],
-      "outputType": "array",
-      "collapsed": true
+      "outputType": "array"
     }
   }
 }
