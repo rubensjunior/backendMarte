@@ -27,6 +27,10 @@
           "columns": [
             {
               "table": "usuarios",
+              "column": "id_usuarios"
+            },
+            {
+              "table": "usuarios",
               "column": "nome_completo"
             },
             {
@@ -115,11 +119,15 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"usuarios\".\"nome_completo\", \"usuarios\".\"nome_tratamento\", \"usuarios\".\"email\", \"usuario_empresa\".\"cargo_usuario_empresa\", \"usuario_empresa\".\"status_usuario\" from \"usuario_empresa\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"usuario_empresa\".\"ref_id_usuario\" where \"usuario_empresa\".\"ref_id_empresa\" = ?"
+          "query": "select \"usuarios\".\"id_usuarios\", \"usuarios\".\"nome_completo\", \"usuarios\".\"nome_tratamento\", \"usuarios\".\"email\", \"usuario_empresa\".\"cargo_usuario_empresa\", \"usuario_empresa\".\"status_usuario\" from \"usuario_empresa\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"usuario_empresa\".\"ref_id_usuario\" where \"usuario_empresa\".\"ref_id_empresa\" = ?"
         }
       },
       "output": true,
       "meta": [
+        {
+          "type": "text",
+          "name": "id_usuarios"
+        },
         {
           "type": "text",
           "name": "nome_completo"

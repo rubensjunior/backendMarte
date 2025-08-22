@@ -394,7 +394,7 @@
                 "module": "core",
                 "action": "setvalue",
                 "options": {
-                  "value": "u",
+                  "value": "Usuário cadastrado com sucesso!",
                   "key": "resposta"
                 },
                 "outputType": "object",

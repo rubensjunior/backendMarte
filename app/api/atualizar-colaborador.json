@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "edit_id_usuario",
+        "name": "edit_id_usuario"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_email",
+        "name": "edit_email"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_nome_tratamento",
+        "name": "edit_nome_tratamento"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_nome_completo",
+        "name": "edit_nome_completo"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_usuario",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "usuarios",
+              "column": "nome_completo",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_completo}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome_tratamento",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_tratamento}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "email",
+              "type": "text",
+              "value": "{{$_POST.edit_email}}"
+            }
+          ],
+          "table": "usuarios",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_usuarios",
+                "field": "id_usuarios",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_POST.edit_id_usuario}}",
+                "data": {
+                  "column": "id_usuarios"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_usuarios",
+          "query": "update \"usuarios\" set \"nome_completo\" = ?, \"nome_tratamento\" = ?, \"email\" = ? where \"id_usuarios\" = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_completo}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_tratamento}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.edit_email}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P4",
+              "value": "{{$_POST.edit_id_usuario}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}
