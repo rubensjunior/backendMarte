@@ -5,17 +5,11 @@
         "type": "number",
         "name": "id_usuario"
       }
-    ],
-    "$_POST": [
-      {
-        "type": "text",
-        "name": "id_usuario_empresa"
-      }
     ]
   },
   "exec": {
     "steps": {
-      "name": "update_colaborador",
+      "name": "update",
       "module": "dbupdater",
       "action": "update",
       "options": {
@@ -35,13 +29,13 @@
             "condition": "AND",
             "rules": [
               {
-                "id": "id_usuario_empresa",
-                "field": "id_usuario_empresa",
-                "type": "string",
+                "id": "ref_id_usuario",
+                "field": "ref_id_usuario",
+                "type": "double",
                 "operator": "equal",
                 "value": "{{$_GET.id_usuario}}",
                 "data": {
-                  "column": "id_usuario_empresa"
+                  "column": "ref_id_usuario"
                 },
                 "operation": "="
               }
@@ -50,7 +44,7 @@
             "valid": true
           },
           "returning": "id_usuario_empresa",
-          "query": "update \"usuario_empresa\" set \"status_usuario\" = ? where \"id_usuario_empresa\" = ? returning \"id_usuario_empresa\"",
+          "query": "update \"usuario_empresa\" set \"status_usuario\" = ? where \"ref_id_usuario\" = ?",
           "params": [
             {
               "name": ":P1",
