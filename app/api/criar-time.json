@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "nome_time",
+        "name": "nome_time"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_criado_por",
+        "name": "id_criado_por"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_empresa",
+        "name": "id_empresa"
+      },
+      {
+        "type": "text",
+        "fieldName": "descricao_time",
+        "name": "descricao_time"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_responsavel",
+        "name": "id_responsavel"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "insert_time",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "times",
+                "column": "nome_time",
+                "type": "text",
+                "value": "{{$_POST.nome_time}}"
+              },
+              {
+                "table": "times",
+                "column": "descricao_time",
+                "type": "text",
+                "value": "{{$_POST.descricao_time}}"
+              },
+              {
+                "table": "times",
+                "column": "criado_por_time",
+                "type": "number",
+                "value": "{{$_POST.id_criado_por}}"
+              },
+              {
+                "table": "times",
+                "column": "responsavel",
+                "type": "number",
+                "value": "{{$_POST.id_responsavel}}"
+              },
+              {
+                "table": "times",
+                "column": "status_time",
+                "type": "text",
+                "value": "{{'Ativo'}}"
+              },
+              {
+                "table": "times",
+                "column": "empresa_times",
+                "type": "number",
+                "value": "{{$_POST.id_empresa}}"
+              }
+            ],
+            "table": "times",
+            "returning": "id_times",
+            "query": "insert into \"times\" (\"criado_por_time\", \"descricao_time\", \"empresa_times\", \"nome_time\", \"responsavel\", \"status_time\") values (?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nome_time}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.descricao_time}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.id_criado_por}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.id_responsavel}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{'Ativo'}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.id_empresa}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insert_membro_time",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "times_membros",
+                "column": "membro_time",
+                "type": "number",
+                "value": "{{$_POST.id_responsavel}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "status_membro",
+                "type": "text",
+                "value": "{{'Ativo'}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "empresa_membro",
+                "type": "number",
+                "value": "{{$_POST.id_empresa}}"
+              }
+            ],
+            "table": "times_membros",
+            "returning": "id_times_membros",
+            "query": "insert into \"times_membros\" (\"empresa_membro\", \"membro_time\", \"status_membro\") values (?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.id_responsavel}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{'Ativo'}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.id_empresa}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}
