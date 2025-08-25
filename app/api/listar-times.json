@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id_empresa"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_times",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "times",
+              "column": "id_times"
+            },
+            {
+              "table": "times",
+              "column": "nome_time"
+            },
+            {
+              "table": "times",
+              "column": "descricao_time"
+            },
+            {
+              "table": "times",
+              "column": "criado_por_time"
+            },
+            {
+              "table": "times",
+              "column": "responsavel"
+            },
+            {
+              "table": "times",
+              "column": "status_time"
+            },
+            {
+              "table": "times",
+              "column": "empresa_times",
+              "aggregate": ""
+            },
+            {
+              "table": "usuarios",
+              "column": "nome_tratamento"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id_empresa}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "times"
+          },
+          "primary": "id_times",
+          "joins": [
+            {
+              "table": "usuarios",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "usuarios",
+                    "column": "id_usuarios",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "times",
+                      "column": "responsavel"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_usuarios"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "times.empresa_times",
+                "field": "times.empresa_times",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.id_empresa}}",
+                "data": {
+                  "table": "times",
+                  "column": "empresa_times",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_empresa",
+                    "inTable": "empresas",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "empresa_times"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"times\".\"id_times\", \"times\".\"nome_time\", \"times\".\"descricao_time\", \"times\".\"criado_por_time\", \"times\".\"responsavel\", \"times\".\"status_time\", \"times\".\"empresa_times\", \"usuarios\".\"nome_tratamento\" from \"times\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times\".\"responsavel\" where \"times\".\"empresa_times\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_times"
+        },
+        {
+          "type": "text",
+          "name": "nome_time"
+        },
+        {
+          "type": "text",
+          "name": "descricao_time"
+        },
+        {
+          "type": "number",
+          "name": "criado_por_time"
+        },
+        {
+          "type": "number",
+          "name": "responsavel"
+        },
+        {
+          "type": "text",
+          "name": "status_time"
+        },
+        {
+          "type": "number",
+          "name": "empresa_times"
+        },
+        {
+          "type": "text",
+          "name": "nome_tratamento"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
