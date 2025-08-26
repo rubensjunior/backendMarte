@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id_time"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "times_membros",
+              "column": "id_times_membros"
+            },
+            {
+              "table": "times_membros",
+              "column": "membro_time"
+            },
+            {
+              "table": "times_membros",
+              "column": "board_time"
+            },
+            {
+              "table": "times_membros",
+              "column": "status_membro"
+            },
+            {
+              "table": "times_membros",
+              "column": "empresa_membro"
+            },
+            {
+              "table": "times_membros",
+              "column": "time"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome_tratamento"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id_time}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "times_membros"
+          },
+          "primary": "id_times_membros",
+          "joins": [
+            {
+              "table": "usuarios",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "usuarios",
+                    "column": "id_usuarios",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "times_membros",
+                      "column": "membro_time"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_usuarios"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "times_membros.time",
+                "field": "times_membros.time",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.id_time}}",
+                "data": {
+                  "table": "times_membros",
+                  "column": "time",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_times",
+                    "inTable": "times",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "time"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"times_membros\".\"id_times_membros\", \"times_membros\".\"membro_time\", \"times_membros\".\"board_time\", \"times_membros\".\"status_membro\", \"times_membros\".\"empresa_membro\", \"times_membros\".\"time\", \"usuarios\".\"nome_tratamento\" from \"times_membros\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times_membros\".\"membro_time\" where \"times_membros\".\"time\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_times_membros"
+        },
+        {
+          "type": "number",
+          "name": "membro_time"
+        },
+        {
+          "type": "number",
+          "name": "board_time"
+        },
+        {
+          "type": "text",
+          "name": "status_membro"
+        },
+        {
+          "type": "number",
+          "name": "empresa_membro"
+        },
+        {
+          "type": "number",
+          "name": "time"
+        },
+        {
+          "type": "text",
+          "name": "nome_tratamento"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

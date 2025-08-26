@@ -156,11 +156,17 @@
                 "column": "empresa_membro",
                 "type": "number",
                 "value": "{{$_POST.id_empresa}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "time",
+                "type": "number",
+                "value": "{{insert_time.identity}}"
               }
             ],
             "table": "times_membros",
             "returning": "id_times_membros",
-            "query": "insert into \"times_membros\" (\"empresa_membro\", \"membro_time\", \"status_membro\") values (?, ?, ?)",
+            "query": "insert into \"times_membros\" (\"empresa_membro\", \"membro_time\", \"status_membro\", \"time\") values (?, ?, ?, ?) returning \"id_times_membros\"",
             "params": [
               {
                 "name": ":P1",
@@ -178,6 +184,12 @@
                 "name": ":P3",
                 "type": "expression",
                 "value": "{{$_POST.id_empresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{insert_time.identity}}",
                 "test": ""
               }
             ]

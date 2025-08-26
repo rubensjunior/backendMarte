@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "edit_nome_time",
+        "name": "edit_nome_time"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_descricao_time",
+        "name": "edit_descricao_time"
+      },
+      {
+        "type": "number",
+        "fieldName": "edit_id_time",
+        "name": "edit_id_time"
+      },
+      {
+        "type": "number",
+        "fieldName": "edit_id_responsavel",
+        "name": "edit_id_responsavel"
+      },
+      {
+        "type": "text",
+        "fieldName": "status_time",
+        "name": "status_time"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_time",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "times",
+              "column": "nome_time",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_time}}"
+            },
+            {
+              "table": "times",
+              "column": "descricao_time",
+              "type": "text",
+              "value": "{{$_POST.edit_descricao_time}}"
+            },
+            {
+              "table": "times",
+              "column": "responsavel",
+              "type": "number",
+              "value": "{{$_POST.edit_id_responsavel}}"
+            },
+            {
+              "table": "times",
+              "column": "status_time",
+              "type": "text",
+              "value": "{{$_POST.status_time}}"
+            }
+          ],
+          "table": "times",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_times",
+                "field": "id_times",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_POST.edit_id_time}}",
+                "data": {
+                  "column": "id_times"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_times",
+          "query": "update \"times\" set \"nome_time\" = ?, \"descricao_time\" = ?, \"responsavel\" = ?, \"status_time\" = ? where \"id_times\" = ? returning \"id_times\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_time}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.edit_descricao_time}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.edit_id_responsavel}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.status_time}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P5",
+              "value": "{{$_POST.edit_id_time}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}
