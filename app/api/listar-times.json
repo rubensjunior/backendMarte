@@ -127,7 +127,14 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"times\".\"id_times\", \"times\".\"nome_time\", \"times\".\"descricao_time\", \"times\".\"criado_por_time\", \"times\".\"responsavel\", \"times\".\"status_time\", \"times\".\"empresa_times\", \"usuarios\".\"nome_tratamento\" from \"times\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times\".\"responsavel\" where \"times\".\"empresa_times\" = ?"
+          "query": "select \"times\".\"id_times\", \"times\".\"nome_time\", \"times\".\"descricao_time\", \"times\".\"criado_por_time\", \"times\".\"responsavel\", \"times\".\"status_time\", \"times\".\"empresa_times\", \"usuarios\".\"nome_tratamento\" from \"times\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times\".\"responsavel\" where \"times\".\"empresa_times\" = ? order by \"times\".\"nome_time\" ASC",
+          "orders": [
+            {
+              "table": "times",
+              "column": "nome_time",
+              "direction": "ASC"
+            }
+          ]
         }
       },
       "output": true,

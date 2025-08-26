@@ -155,7 +155,14 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"empresas\".\"id_empresa\", \"empresas\".\"razao_social\", \"empresas\".\"nome_fantasia\", \"empresas\".\"nome_polo\", \"empresas\".\"cnpj\", \"empresas\".\"empresa_matriz\", \"empresas\".\"cep\", \"empresas\".\"whatsapp\", \"empresas\".\"status_empresa\", \"empresas\".\"endereco\", \"empresas\".\"numero\", \"empresas\".\"complemento\", \"empresas\".\"bairro\", \"empresas\".\"cidade\", \"empresas\".\"uf\" from \"usuario_empresa\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuario_empresa\".\"ref_id_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ?"
+          "query": "select \"empresas\".\"id_empresa\", \"empresas\".\"razao_social\", \"empresas\".\"nome_fantasia\", \"empresas\".\"nome_polo\", \"empresas\".\"cnpj\", \"empresas\".\"empresa_matriz\", \"empresas\".\"cep\", \"empresas\".\"whatsapp\", \"empresas\".\"status_empresa\", \"empresas\".\"endereco\", \"empresas\".\"numero\", \"empresas\".\"complemento\", \"empresas\".\"bairro\", \"empresas\".\"cidade\", \"empresas\".\"uf\" from \"usuario_empresa\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuario_empresa\".\"ref_id_empresa\" where \"usuario_empresa\".\"ref_id_usuario\" = ? order by \"empresas\".\"nome_polo\" ASC",
+          "orders": [
+            {
+              "table": "empresas",
+              "column": "nome_polo",
+              "direction": "ASC"
+            }
+          ]
         }
       },
       "output": true,

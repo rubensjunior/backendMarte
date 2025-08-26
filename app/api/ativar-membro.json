@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id_membro"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "times_membros",
+              "column": "status_membro",
+              "type": "text",
+              "value": "{{'Ativo'}}"
+            }
+          ],
+          "table": "times_membros",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_times_membros",
+                "field": "id_times_membros",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.id_membro}}",
+                "data": {
+                  "column": "id_times_membros"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_times_membros",
+          "query": "update \"times_membros\" set \"status_membro\" = ? where \"id_times_membros\" = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{'Ativo'}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_GET.id_membro}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

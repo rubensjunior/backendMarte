@@ -122,7 +122,14 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"times_membros\".\"id_times_membros\", \"times_membros\".\"membro_time\", \"times_membros\".\"board_time\", \"times_membros\".\"status_membro\", \"times_membros\".\"empresa_membro\", \"times_membros\".\"time\", \"usuarios\".\"nome_tratamento\" from \"times_membros\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times_membros\".\"membro_time\" where \"times_membros\".\"time\" = ?"
+          "query": "select \"times_membros\".\"id_times_membros\", \"times_membros\".\"membro_time\", \"times_membros\".\"board_time\", \"times_membros\".\"status_membro\", \"times_membros\".\"empresa_membro\", \"times_membros\".\"time\", \"usuarios\".\"nome_tratamento\" from \"times_membros\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times_membros\".\"membro_time\" where \"times_membros\".\"time\" = ? order by \"usuarios\".\"nome_tratamento\" ASC",
+          "orders": [
+            {
+              "table": "usuarios",
+              "column": "nome_tratamento",
+              "direction": "ASC"
+            }
+          ]
         }
       },
       "output": true,
