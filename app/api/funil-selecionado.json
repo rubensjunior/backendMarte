@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "funil"
+      },
+      {
+        "type": "number",
+        "name": "usuario"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_lists",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "board_lists",
+              "column": "id_board_lists"
+            },
+            {
+              "table": "board_lists",
+              "column": "board"
+            },
+            {
+              "table": "board_lists",
+              "column": "status_list"
+            },
+            {
+              "table": "board_lists",
+              "column": "tpo_list"
+            },
+            {
+              "table": "board_lists",
+              "column": "nome_list"
+            },
+            {
+              "table": "board_lists",
+              "column": "empresa_list"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.funil}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "board_lists"
+          },
+          "primary": "id_board_lists",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "board_lists.board",
+                "field": "board_lists.board",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.funil}}",
+                "data": {
+                  "table": "board_lists",
+                  "column": "board",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_board",
+                    "inTable": "boards",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "board"
+                  }
+                },
+                "operation": "=",
+                "table": "board_lists"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"id_board_lists\", \"board\", \"status_list\", \"tpo_list\", \"nome_list\", \"empresa_list\" from \"board_lists\" where \"board_lists\".\"board\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_board_lists"
+        },
+        {
+          "type": "number",
+          "name": "board"
+        },
+        {
+          "type": "text",
+          "name": "status_list"
+        },
+        {
+          "type": "text",
+          "name": "tpo_list"
+        },
+        {
+          "type": "text",
+          "name": "nome_list"
+        },
+        {
+          "type": "number",
+          "name": "empresa_list"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

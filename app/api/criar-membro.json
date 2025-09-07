@@ -22,81 +22,107 @@
     ]
   },
   "exec": {
-    "steps": {
-      "name": "insert",
-      "module": "dbupdater",
-      "action": "insert",
-      "options": {
-        "connection": "db",
-        "sql": {
-          "type": "insert",
-          "values": [
+    "steps": [
+      {
+        "name": "validate",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
             {
-              "table": "times_membros",
-              "column": "membro_time",
-              "type": "number",
-              "value": "{{$_POST.membro_time}}"
-            },
-            {
-              "table": "times_membros",
-              "column": "status_membro",
-              "type": "text",
-              "value": "{{'Ativo'}}"
-            },
-            {
-              "table": "times_membros",
-              "column": "empresa_membro",
-              "type": "number",
-              "value": "{{$_POST.empresa_membro}}"
-            },
-            {
-              "table": "times_membros",
-              "column": "time",
-              "type": "number",
-              "value": "{{$_POST.time}}"
-            }
-          ],
-          "table": "times_membros",
-          "returning": "id_times_membros",
-          "query": "insert into \"times_membros\" (\"empresa_membro\", \"membro_time\", \"status_membro\", \"time\") values (?, ?, ?, ?) returning \"id_times_membros\"",
-          "params": [
-            {
-              "name": ":P1",
-              "type": "expression",
+              "name": "validate_1",
               "value": "{{$_POST.membro_time}}",
-              "test": ""
-            },
-            {
-              "name": ":P2",
-              "type": "expression",
-              "value": "{{'Ativo'}}",
-              "test": ""
-            },
-            {
-              "name": ":P3",
-              "type": "expression",
-              "value": "{{$_POST.empresa_membro}}",
-              "test": ""
-            },
-            {
-              "name": ":P4",
-              "type": "expression",
-              "value": "{{$_POST.time}}",
-              "test": ""
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "db",
+                    "table": "times_membros",
+                    "column": "membro_time"
+                  },
+                  "message": "Usuário já faz parte do time!"
+                }
+              },
+              "fieldName": "membro_time"
             }
           ]
         }
       },
-      "meta": [
-        {
-          "name": "identity",
-          "type": "text"
+      {
+        "name": "insert",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "times_membros",
+                "column": "membro_time",
+                "type": "number",
+                "value": "{{$_POST.membro_time}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "status_membro",
+                "type": "text",
+                "value": "{{'Ativo'}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "empresa_membro",
+                "type": "number",
+                "value": "{{$_POST.empresa_membro}}"
+              },
+              {
+                "table": "times_membros",
+                "column": "time",
+                "type": "number",
+                "value": "{{$_POST.time}}"
+              }
+            ],
+            "table": "times_membros",
+            "returning": "id_times_membros",
+            "query": "insert into \"times_membros\" (\"empresa_membro\", \"membro_time\", \"status_membro\", \"time\") values (?, ?, ?, ?) returning \"id_times_membros\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.membro_time}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{'Ativo'}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.empresa_membro}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.time}}",
+                "test": ""
+              }
+            ]
+          }
         },
-        {
-          "name": "affected",
-          "type": "number"
-        }
-      ]
-    }
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
   }
 }

@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "nome_funil",
+        "name": "nome_funil"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_empresa",
+        "name": "id_empresa"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_criado_por",
+        "name": "id_criado_por"
+      },
+      {
+        "type": "text",
+        "fieldName": "descricao",
+        "name": "descricao"
+      },
+      {
+        "type": "number",
+        "fieldName": "time",
+        "name": "time"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert_funil",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "boards",
+              "column": "nome_board",
+              "type": "text",
+              "value": "{{$_POST.nome_funil}}"
+            },
+            {
+              "table": "boards",
+              "column": "tipo_board",
+              "type": "text",
+              "value": "{{'Funil'}}"
+            },
+            {
+              "table": "boards",
+              "column": "criado_por_board",
+              "type": "number",
+              "value": "{{$_POST.id_criado_por}}"
+            },
+            {
+              "table": "boards",
+              "column": "descricao_board",
+              "type": "text",
+              "value": "{{$_POST.descricao}}"
+            },
+            {
+              "table": "boards",
+              "column": "time",
+              "type": "number",
+              "value": "{{$_POST.time}}"
+            },
+            {
+              "table": "boards",
+              "column": "empresa_board",
+              "type": "number",
+              "value": "{{$_POST.id_empresa}}"
+            }
+          ],
+          "table": "boards",
+          "returning": "id_board",
+          "query": "insert into \"boards\" (\"criado_por_board\", \"descricao_board\", \"empresa_board\", \"nome_board\", \"time\", \"tipo_board\") values (?, ?, ?, ?, ?, ?)",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.nome_funil}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{'Funil'}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.id_criado_por}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.descricao}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.time}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.id_empresa}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

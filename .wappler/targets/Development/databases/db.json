@@ -21,190 +21,6 @@
       "storage"
     ],
     "tables": {
-      "times_membros": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_times_membros": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_times_membros": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "membro_time": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuarios",
-              "inTable": "usuarios",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "board_time": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_board",
-              "inTable": "boards",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "status_membro": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "empresa_membro": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "time": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_times",
-              "inTable": "times",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        },
-        "parent": "times"
-      },
-      "times": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_times": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_times": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_time": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "descricao_time": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_por_time": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuarios",
-              "inTable": "usuarios",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "responsavel": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuarios",
-              "inTable": "usuarios",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "status_time": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "empresa_times": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        },
-        "sub": {
-          "times_membros": "time"
-        },
-        "refs": {
-          "boards": "time"
-        }
-      },
       "realtime.schema_migrations": {
         "db": {
           "schema": "realtime"
@@ -218,529 +34,6 @@
       "realtime.messages": {
         "db": {
           "schema": "realtime"
-        }
-      },
-      "empresas": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_empresa": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_empresa": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "razao_social": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "nome_fantasia": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "nome_polo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cnpj": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cep": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "whatsapp": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "endereco": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "numero": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "complemento": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "bairro": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cidade": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "uf": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "empresa_matriz": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        },
-        "refs": {
-          "times_membros": "empresa_membro",
-          "times": "empresa_times",
-          "boards": "empresa_board",
-          "usuarios": "empresa_selecionada",
-          "usuario_empresa": "ref_id_empresa"
-        }
-      },
-      "boards_list_cards": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_list_cards": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_list_cards": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          }
-        }
-      },
-      "boards": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_board": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_board": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_board": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "tipo_board": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_por_board": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuarios",
-              "inTable": "usuarios",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "descricao_board": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "time": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_times",
-              "inTable": "times",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "empresa_board": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        },
-        "refs": {
-          "times_membros": "board_time"
-        }
-      },
-      "funcao_colaborador": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_funcao": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_funcao": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_funcao": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "usuarios": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_usuarios": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_usuarios": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_completo": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "nome_tratamento": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "email": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "senha_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "empresa_selecionada": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          }
-        },
-        "refs": {
-          "times_membros": "membro_time",
-          "times": "criado_por_time",
-          "boards": "criado_por_board"
-        },
-        "sub": {
-          "usuario_empresa": "ref_id_usuario"
-        }
-      },
-      "board_membros": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_board_membros": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_board_membros": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          }
-        }
-      },
-      "board_lists": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_board_lists": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_board_lists": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          }
-        }
-      },
-      "usuario_empresa": {
-        "db": {
-          "schema": "public"
-        },
-        "columns": {
-          "id_usuario_empresa": {
-            "db": {
-              "type": "bigIncrements",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "created_at_usuario_empresa": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "useTz": true,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "ref_id_usuario": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuarios",
-              "inTable": "usuarios",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "bigInteger",
-              "onUpdate": "NO ACTION",
-              "onDelete": "NO ACTION"
-            }
-          },
-          "cargo_usuario_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "parent": "usuarios"
-      },
-      "vault.secrets": {
-        "db": {
-          "schema": "vault",
-          "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
         }
       },
       "auth.mfa_challenges": {
@@ -904,6 +197,17 @@
           "auth.saml_relay_states": "flow_state_id"
         }
       },
+      "auth.oauth_clients": {
+        "db": {
+          "schema": "auth"
+        }
+      },
+      "vault.secrets": {
+        "db": {
+          "schema": "vault",
+          "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
+        }
+      },
       "storage.migrations": {
         "db": {
           "schema": "storage"
@@ -916,7 +220,8 @@
         "refs": {
           "storage.s3_multipart_uploads_parts": "bucket_id",
           "storage.objects": "bucket_id",
-          "storage.s3_multipart_uploads": "bucket_id"
+          "storage.s3_multipart_uploads": "bucket_id",
+          "storage.prefixes": "bucket_id"
         }
       },
       "storage.s3_multipart_uploads_parts": {
@@ -936,6 +241,1031 @@
         },
         "sub": {
           "storage.s3_multipart_uploads_parts": "upload_id"
+        }
+      },
+      "storage.buckets_analytics": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "storage.prefixes": {
+        "db": {
+          "schema": "storage"
+        }
+      },
+      "boards_list_cards": {
+        "db": {},
+        "columns": {
+          "id_list_cards": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_list_cards": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "bord_list_card": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_board_lists",
+              "inTable": "board_lists",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "empresa_list_card": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "status_list_card": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "tipo_list_card": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "leads_cards": {
+        "db": {},
+        "columns": {
+          "id_leads": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_leads": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_leads": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "tipo_curso": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_leads": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "card": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_list_cards",
+              "inTable": "boards_list_cards",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "responsavel_leads": {
+            "db": {
+              "type": "bigInteger",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "referenceType": "bigInteger"
+            }
+          },
+          "status_leads": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "curso_leads": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_curso",
+              "inTable": "cursos",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "criado_por": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "responsavel": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        }
+      },
+      "empresas": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_empresa": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_empresa": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "razao_social": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_fantasia": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_polo": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cnpj": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cep": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "whatsapp": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "endereco": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "numero": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "complemento": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "bairro": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cidade": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "uf": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_matriz": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        },
+        "refs": {
+          "boards_list_cards": "empresa_list_card",
+          "leads_cards": "empresa_leads",
+          "boards": "empresa_board",
+          "times_membros": "empresa_membro",
+          "usuarios": "empresa_selecionada",
+          "times": "empresa_times",
+          "board_lists": "empresa_list",
+          "usuario_empresa": "ref_id_empresa"
+        }
+      },
+      "boards": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_board": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_board": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "tipo_board": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_por_board": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "descricao_board": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "time": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_times",
+              "inTable": "times",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "empresa_board": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "status_board": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "refs": {
+          "times_membros": "board_time"
+        },
+        "sub": {
+          "board_lists": "board"
+        }
+      },
+      "times_membros": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_times_membros": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_times_membros": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "membro_time": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "board_time": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_board",
+              "inTable": "boards",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "status_membro": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_membro": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "time": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_times",
+              "inTable": "times",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        },
+        "parent": "times"
+      },
+      "funcao_colaborador": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_funcao": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_funcao": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_funcao": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "usuarios": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_usuarios": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_usuarios": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_completo": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_tratamento": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "email": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "senha_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_selecionada": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        },
+        "refs": {
+          "leads_cards": "responsavel_leads",
+          "boards": "criado_por_board",
+          "times_membros": "membro_time",
+          "times": "criado_por_time"
+        },
+        "sub": {
+          "usuario_empresa": "ref_id_usuario"
+        }
+      },
+      "times": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_times": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_times": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_time": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "descricao_time": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_por_time": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "responsavel": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "status_time": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_times": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        },
+        "refs": {
+          "boards": "time"
+        },
+        "sub": {
+          "times_membros": "time"
+        }
+      },
+      "board_membros": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_board_membros": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board_membros": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          }
+        }
+      },
+      "board_lists": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_board_lists": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_board_lists": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "board": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_board",
+              "inTable": "boards",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "status_list": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "tpo_list": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_list": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_list": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          }
+        },
+        "refs": {
+          "boards_list_cards": "bord_list_card",
+          "leads_cards": "list_board_lead"
+        },
+        "parent": "boards"
+      },
+      "usuario_empresa": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_usuario_empresa": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_usuario_empresa": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuarios",
+              "inTable": "usuarios",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "bigInteger",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
+            }
+          },
+          "cargo_usuario_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "parent": "usuarios"
+      },
+      "cursos": {
+        "db": {},
+        "columns": {
+          "id_curso": {
+            "db": {
+              "type": "bigIncrements",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "created_at_curso": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "useTz": true,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_curso": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "tipo_curso": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "duracao_curso": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "descricao_curso": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "modalidade": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "refs": {
+          "leads_cards": "curso_leads"
         }
       }
     },

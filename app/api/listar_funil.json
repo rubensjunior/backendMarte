@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "id_empresa_funil"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_funil",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id_empresa_funil}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{'Funil'}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "boards"
+          },
+          "primary": "id_board",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "boards.empresa_board",
+                "field": "boards.empresa_board",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.id_empresa_funil}}",
+                "data": {
+                  "table": "boards",
+                  "column": "empresa_board",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_empresa",
+                    "inTable": "empresas",
+                    "referenceType": "bigInteger",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "NO ACTION",
+                    "name": "empresa_board"
+                  }
+                },
+                "operation": "="
+              },
+              {
+                "id": "boards.tipo_board",
+                "field": "boards.tipo_board",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{'Funil'}}",
+                "data": {
+                  "table": "boards",
+                  "column": "tipo_board",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "maxLength": -5,
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "tipo_board"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select * from \"boards\" where \"boards\".\"empresa_board\" = ? and \"boards\".\"tipo_board\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_board"
+        },
+        {
+          "type": "datetime",
+          "name": "created_at_board"
+        },
+        {
+          "type": "text",
+          "name": "nome_board"
+        },
+        {
+          "type": "text",
+          "name": "tipo_board"
+        },
+        {
+          "type": "number",
+          "name": "criado_por_board"
+        },
+        {
+          "type": "text",
+          "name": "descricao_board"
+        },
+        {
+          "type": "number",
+          "name": "time"
+        },
+        {
+          "type": "number",
+          "name": "empresa_board"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
