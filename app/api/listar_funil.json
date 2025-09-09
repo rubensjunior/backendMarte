@@ -162,7 +162,7 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"boards\".\"id_board\", \"boards\".\"nome_board\", \"boards\".\"tipo_board\", \"boards\".\"descricao_board\", \"boards\".\"time\", \"boards\".\"empresa_board\", \"boards\".\"status_board\", \"times\".\"nome_time\", \"times\".\"descricao_time\", \"times\".\"responsavel\" from \"boards\" inner join \"times\" on \"times\".\"id_times\" = \"boards\".\"time\" where \"boards\".\"empresa_board\" = ? and \"boards\".\"tipo_board\" = ?",
+          "query": "select \"boards\".\"id_board\", \"boards\".\"nome_board\", \"boards\".\"tipo_board\", \"boards\".\"descricao_board\", \"boards\".\"time\", \"boards\".\"empresa_board\", \"boards\".\"status_board\", \"times\".\"nome_time\", \"times\".\"descricao_time\", \"times\".\"responsavel\" from \"boards\" inner join \"times\" on \"times\".\"id_times\" = \"boards\".\"time\" where \"boards\".\"empresa_board\" = ? and \"boards\".\"tipo_board\" = ? order by \"boards\".\"nome_board\" ASC",
           "sub": {
             "lists": {
               "table": {
@@ -231,7 +231,14 @@
               ],
               "query": "select \"times_membros\".\"id_times_membros\", \"times_membros\".\"membro_time\", \"times_membros\".\"board_time\", \"times_membros\".\"empresa_membro\", \"times_membros\".\"time\", \"usuarios\".\"nome_tratamento\" from \"times_membros\" as \"times_membros\" inner join \"usuarios\" on \"usuarios\".\"id_usuarios\" = \"times_membros\".\"membro_time\""
             }
-          }
+          },
+          "orders": [
+            {
+              "table": "boards",
+              "column": "nome_board",
+              "direction": "ASC"
+            }
+          ]
         }
       },
       "output": true,

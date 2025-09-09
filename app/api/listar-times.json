@@ -121,7 +121,8 @@
                     "name": "empresa_times"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "times"
               }
             ],
             "conditional": null,

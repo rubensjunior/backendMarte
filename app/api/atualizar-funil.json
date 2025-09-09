@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "edit_nome_funil",
+        "name": "edit_nome_funil"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_id_board",
+        "name": "edit_id_board"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_descricao",
+        "name": "edit_descricao"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_time",
+        "name": "edit_time"
+      },
+      {
+        "type": "text",
+        "fieldName": "edit_status_board",
+        "name": "edit_status_board"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_board",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "boards",
+              "column": "nome_board",
+              "type": "text",
+              "value": "{{$_POST.edit_nome_funil}}"
+            },
+            {
+              "table": "boards",
+              "column": "descricao_board",
+              "type": "text",
+              "value": "{{$_POST.edit_descricao}}"
+            },
+            {
+              "table": "boards",
+              "column": "time",
+              "type": "number",
+              "value": "{{$_POST.edit_time}}"
+            },
+            {
+              "table": "boards",
+              "column": "status_board",
+              "type": "text",
+              "value": "{{$_POST.edit_status_board}}"
+            }
+          ],
+          "table": "boards",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_board",
+                "field": "id_board",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_POST.edit_id_board}}",
+                "data": {
+                  "column": "id_board"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_board",
+          "query": "update \"boards\" set \"nome_board\" = ?, \"descricao_board\" = ?, \"time\" = ?, \"status_board\" = ? where \"id_board\" = ? returning \"id_board\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.edit_nome_funil}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.edit_descricao}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.edit_time}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.edit_status_board}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P5",
+              "value": "{{$_POST.edit_id_board}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

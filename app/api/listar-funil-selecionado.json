@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "funil"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query_board",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "boards",
+              "column": "id_board"
+            },
+            {
+              "table": "boards",
+              "column": "nome_board"
+            },
+            {
+              "table": "boards",
+              "column": "descricao_board"
+            },
+            {
+              "table": "boards",
+              "column": "time",
+              "aggregate": ""
+            },
+            {
+              "table": "boards",
+              "column": "empresa_board"
+            },
+            {
+              "table": "times",
+              "column": "nome_time"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.funil}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "boards"
+          },
+          "primary": "id_board",
+          "joins": [
+            {
+              "table": "times",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "times",
+                    "column": "id_times",
+                    "operation": "=",
+                    "operator": "equal",
+                    "value": {
+                      "table": "boards",
+                      "column": "time",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_times"
+            }
+          ],
+          "query": "select \"boards\".\"id_board\", \"boards\".\"nome_board\", \"boards\".\"descricao_board\", \"boards\".\"time\", \"boards\".\"empresa_board\", \"times\".\"nome_time\" from \"boards\" inner join \"times\" on \"times\".\"id_times\" = \"boards\".\"time\" where \"boards\".\"id_board\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "boards.id_board",
+                "field": "boards.id_board",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.funil}}",
+                "data": {
+                  "table": "boards",
+                  "column": "id_board",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "bigIncrements",
+                    "primary": true,
+                    "unique": true,
+                    "nullable": false,
+                    "name": "id_board"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "sub": {
+            "lists": {
+              "type": "SELECT",
+              "table": {
+                "name": "board_lists",
+                "alias": "lists"
+              },
+              "key": "board",
+              "columns": [
+                {
+                  "table": "lists",
+                  "column": "id_board_lists"
+                },
+                {
+                  "table": "lists",
+                  "column": "board"
+                },
+                {
+                  "table": "lists",
+                  "column": "status_list"
+                },
+                {
+                  "table": "lists",
+                  "column": "tpo_list"
+                },
+                {
+                  "table": "lists",
+                  "column": "nome_list"
+                },
+                {
+                  "table": "lists",
+                  "column": "empresa_list"
+                }
+              ],
+              "params": [],
+              "primary": "id_board_lists",
+              "joins": [],
+              "sub": {
+                "board_cards": {
+                  "type": "SELECT",
+                  "table": {
+                    "name": "board_cards",
+                    "alias": "board_cards"
+                  },
+                  "key": "board_list",
+                  "columns": [
+                    {
+                      "table": "board_cards",
+                      "column": "id_card"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "status_card"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "board_list"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "empresa_card"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "criado_por"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "resposavel_card"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "nome_lead"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "whats_lead"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "email_lead"
+                    },
+                    {
+                      "table": "board_cards",
+                      "column": "curso_lead"
+                    }
+                  ],
+                  "params": [],
+                  "primary": "id_card",
+                  "joins": [],
+                  "query": "select \"id_card\", \"status_card\", \"board_list\", \"empresa_card\", \"criado_por\", \"resposavel_card\", \"nome_lead\", \"whats_lead\", \"email_lead\", \"curso_lead\" from \"board_cards\" as \"board_cards\""
+                }
+              },
+              "query": "select \"id_board_lists\", \"board\", \"status_list\", \"tpo_list\", \"nome_list\", \"empresa_list\" from \"board_lists\" as \"lists\""
+            },
+            "times_membros": {
+              "table": {
+                "name": "times_membros",
+                "alias": "times_membros"
+              },
+              "key": "board_time"
+            }
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_board"
+        },
+        {
+          "type": "text",
+          "name": "nome_board"
+        },
+        {
+          "type": "text",
+          "name": "descricao_board"
+        },
+        {
+          "type": "number",
+          "name": "time"
+        },
+        {
+          "type": "number",
+          "name": "empresa_board"
+        },
+        {
+          "type": "text",
+          "name": "nome_time"
+        },
+        {
+          "name": "times_membros",
+          "type": "array",
+          "sub": [
+            {
+              "type": "text",
+              "name": "id_times_membros"
+            },
+            {
+              "type": "datetime",
+              "name": "created_at_times_membros"
+            },
+            {
+              "type": "number",
+              "name": "membro_time"
+            },
+            {
+              "type": "number",
+              "name": "board_time"
+            },
+            {
+              "type": "text",
+              "name": "status_membro"
+            },
+            {
+              "type": "number",
+              "name": "empresa_membro"
+            },
+            {
+              "type": "number",
+              "name": "time"
+            }
+          ]
+        },
+        {
+          "name": "lists",
+          "type": "array",
+          "sub": [
+            {
+              "type": "text",
+              "name": "id_board_lists"
+            },
+            {
+              "type": "number",
+              "name": "board"
+            },
+            {
+              "type": "text",
+              "name": "status_list"
+            },
+            {
+              "type": "text",
+              "name": "tpo_list"
+            },
+            {
+              "type": "text",
+              "name": "nome_list"
+            },
+            {
+              "type": "number",
+              "name": "empresa_list"
+            },
+            {
+              "name": "board_cards",
+              "type": "array",
+              "sub": [
+                {
+                  "type": "text",
+                  "name": "id_card"
+                },
+                {
+                  "type": "text",
+                  "name": "status_card"
+                },
+                {
+                  "type": "number",
+                  "name": "board_list"
+                },
+                {
+                  "type": "number",
+                  "name": "empresa_card"
+                },
+                {
+                  "type": "number",
+                  "name": "criado_por"
+                },
+                {
+                  "type": "number",
+                  "name": "resposavel_card"
+                },
+                {
+                  "type": "text",
+                  "name": "nome_lead"
+                },
+                {
+                  "type": "text",
+                  "name": "whats_lead"
+                },
+                {
+                  "type": "text",
+                  "name": "email_lead"
+                },
+                {
+                  "type": "number",
+                  "name": "curso_lead"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}
