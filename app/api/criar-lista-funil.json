@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "board",
+        "name": "board"
+      },
+      {
+        "type": "text",
+        "fieldName": "nome_list",
+        "name": "nome_list"
+      },
+      {
+        "type": "number",
+        "fieldName": "empresa_list",
+        "name": "empresa_list"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert_lista",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "board_lists",
+              "column": "board",
+              "type": "number",
+              "value": "{{$_POST.board}}"
+            },
+            {
+              "table": "board_lists",
+              "column": "status_list",
+              "type": "text",
+              "value": "{{'Ativo'}}"
+            },
+            {
+              "table": "board_lists",
+              "column": "tpo_list",
+              "type": "text",
+              "value": "{{'Funil'}}"
+            },
+            {
+              "table": "board_lists",
+              "column": "nome_list",
+              "type": "text",
+              "value": "{{$_POST.nome_list}}"
+            },
+            {
+              "table": "board_lists",
+              "column": "empresa_list",
+              "type": "number",
+              "value": "{{$_POST.empresa_list}}"
+            }
+          ],
+          "table": "board_lists",
+          "returning": "id_board_lists",
+          "query": "insert into \"board_lists\" (\"board\", \"empresa_list\", \"nome_list\", \"status_list\", \"tpo_list\") values (?, ?, ?, ?, ?)",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.board}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{'Ativo'}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{'Funil'}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.nome_list}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.empresa_list}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ],
+      "collapsed": true
+    }
+  }
+}
