@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "editar_nome_list",
+        "name": "editar_nome_list"
+      },
+      {
+        "type": "number",
+        "fieldName": "id_lista",
+        "name": "id_lista"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "board_lists",
+              "column": "nome_list",
+              "type": "text",
+              "value": "{{$_POST.editar_nome_list}}"
+            }
+          ],
+          "table": "board_lists",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_board_lists",
+                "field": "id_board_lists",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_POST.id_lista}}",
+                "data": {
+                  "column": "id_board_lists"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_board_lists",
+          "query": "update \"board_lists\" set \"nome_list\" = ? where \"id_board_lists\" = ? returning \"id_board_lists\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.editar_nome_list}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_POST.id_lista}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

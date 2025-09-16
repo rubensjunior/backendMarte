@@ -209,7 +209,14 @@
                   "query": "select \"id_card\", \"status_card\", \"board_list\", \"empresa_card\", \"criado_por\", \"resposavel_card\", \"nome_lead\", \"whats_lead\", \"email_lead\", \"curso_lead\" from \"board_cards\" as \"board_cards\""
                 }
               },
-              "query": "select \"id_board_lists\", \"board\", \"status_list\", \"tpo_list\", \"nome_list\", \"empresa_list\" from \"board_lists\" as \"lists\""
+              "query": "select \"id_board_lists\", \"board\", \"status_list\", \"tpo_list\", \"nome_list\", \"empresa_list\" from \"board_lists\" as \"lists\" order by \"id_board_lists\" ASC",
+              "orders": [
+                {
+                  "table": "lists",
+                  "column": "id_board_lists",
+                  "direction": "ASC"
+                }
+              ]
             },
             "times_membros": {
               "table": {

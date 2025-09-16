@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "cursos",
+              "column": "id_curso"
+            },
+            {
+              "table": "cursos",
+              "column": "nome_curso"
+            },
+            {
+              "table": "cursos",
+              "column": "tipo_curso"
+            },
+            {
+              "table": "cursos",
+              "column": "modalidade"
+            },
+            {
+              "table": "cursos",
+              "column": "grau"
+            },
+            {
+              "table": "cursos",
+              "column": "area_atuaca"
+            },
+            {
+              "table": "cursos",
+              "column": "duracao"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "cursos"
+          },
+          "primary": "id_curso",
+          "joins": [],
+          "query": "select \"id_curso\", \"nome_curso\", \"tipo_curso\", \"modalidade\", \"grau\", \"area_atuaca\", \"duracao\" from \"cursos\""
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "id_curso"
+        },
+        {
+          "type": "text",
+          "name": "nome_curso"
+        },
+        {
+          "type": "text",
+          "name": "tipo_curso"
+        },
+        {
+          "type": "text",
+          "name": "modalidade"
+        },
+        {
+          "type": "text",
+          "name": "grau"
+        },
+        {
+          "type": "text",
+          "name": "area_atuaca"
+        },
+        {
+          "type": "text",
+          "name": "duracao"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

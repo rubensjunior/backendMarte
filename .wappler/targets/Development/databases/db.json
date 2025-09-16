@@ -1322,9 +1322,7 @@
         "parent": "usuarios"
       },
       "cursos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_curso": {
             "db": {
@@ -1362,25 +1360,34 @@
               "nullable": true
             }
           },
-          "duracao_curso": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "descricao_curso": {
-            "db": {
-              "type": "string",
-              "maxLength": -5,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
           "modalidade": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "grau": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "area_atuaca": {
+            "db": {
+              "type": "string",
+              "maxLength": -5,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "duracao": {
             "db": {
               "type": "string",
               "maxLength": -5,
