@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "card"
+      },
+      {
+        "type": "number",
+        "name": "funil"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "board_cards",
+              "column": "status_card",
+              "type": "text",
+              "value": "13"
+            }
+          ],
+          "table": "board_cards",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_card",
+                "field": "id_card",
+                "type": "string",
+                "operator": "equal",
+                "value": "10",
+                "data": {
+                  "column": "id_card"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_card",
+          "query": "update \"board_cards\" set \"status_card\" = ? where \"id_card\" = ? returning \"id_card\"",
+          "params": []
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

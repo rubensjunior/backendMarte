@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "fieldName": "card",
+        "name": "card"
+      },
+      {
+        "type": "number",
+        "fieldName": "funil",
+        "name": "funil"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update_card",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "board_cards",
+              "column": "board_list",
+              "type": "number",
+              "value": "{{$_GET.funil}}"
+            }
+          ],
+          "table": "board_cards",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_card",
+                "field": "id_card",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_GET.card}}",
+                "data": {
+                  "column": "id_card"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_card",
+          "query": "update \"board_cards\" set \"board_list\" = ? where \"id_card\" = ? returning \"id_card\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_GET.funil}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_GET.card}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

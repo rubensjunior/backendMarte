@@ -804,9 +804,7 @@
         "parent": "times"
       },
       "board_cards": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_card": {
             "db": {
